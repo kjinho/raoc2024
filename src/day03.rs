@@ -51,9 +51,9 @@ fn parse_part2(input: String) -> Result<Vec<Command>,Box<dyn Error>> {
   let mut result: Vec<Command> = Vec::new();
   for (_, [command]) in re.captures_iter(input.as_str()).map(|c| c.extract()) {
     match command {
-      _ if command.starts_with("don't()") => 
+      "don't()" => 
         result.push(Command::Dont),
-      _ if command.starts_with("do()") => 
+      "do()" => 
         result.push(Command::Do),
       _ if command.starts_with("mul(") => 
         result.push(Command::Multiply(parse_mul(command)?)),
