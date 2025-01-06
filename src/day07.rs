@@ -66,6 +66,25 @@ enum Operator {
   Concat
 }
 
+// fn concat_numbers(a: usize, b: usize) -> Option<usize> {
+//   format!("{a}{b}").parse::<usize>().ok()
+// }
+
+fn log_concat_numbers(a: usize, b: usize) -> usize {
+  match b {
+    0 => a*10,
+    b => {
+      let n = (b as f64).log10().floor() as u32;
+      a*(10usize.pow(n+1)) + b
+    }
+  }
+}
+
+// fn str_len_concat_numbers(a: usize, b: usize) -> usize {
+//   let n: u32 = b.to_string().len().try_into().unwrap();
+//   a*(10usize.pow(n)) + b
+// }
+
 impl Equation {
   fn operators(&self, ops: &Vec<Operator>) -> Vec<Vec<Operator>> {
     permute_operators(self.numbers.len() - 1, &ops)
@@ -83,10 +102,10 @@ impl Equation {
             match op {
               Operator::Add => Some(acc+num),
               Operator::Multiply => Some(acc*num),
-              Operator::Concat => {
-                let number_string = format!("{acc}{num}");
-                number_string.parse::<usize>().ok()
-              }
+              Operator::Concat => 
+                Some(log_concat_numbers(acc, *num))
+                // Some(str_len_concat_numbers(acc, *num))
+                // concat_numbers(acc, *num)
             }
           }
         )
