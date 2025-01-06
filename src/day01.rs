@@ -51,13 +51,13 @@ fn aggregate_differences(ps: Vec<Pair>) -> usize {
         .sum()
 }
 
-pub fn part1(input: String) -> Result<usize,Box<dyn Error>> {
-    let parsed = parse_input(input.as_str())?;
+pub fn part1(input: &str) -> Result<usize,Box<dyn Error>> {
+    let parsed = parse_input(input)?;
     Ok(aggregate_differences(sort_pair_vec(parsed)))
 }
 
-pub fn part2(input: String) -> Result<usize,Box<dyn Error>> {
-    let parsed = parse_input(input.as_str())?;
+pub fn part2(input: &str) -> Result<usize,Box<dyn Error>> {
+    let parsed = parse_input(input)?;
     let (a,b) = unzip_pair_vec(parsed);
     let res =
         a.iter()

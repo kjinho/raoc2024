@@ -42,8 +42,8 @@ fn level_safe_p(report: &Report) -> bool {
   (all_increasing_p(report) || all_decreasing_p(report)) && all_permitted_diff(report)
 }
 
-pub fn part1(input: String) -> Result<usize,Box<dyn Error>> {
-  Ok(parse_input(input.as_str())?.iter().filter(|&x| level_safe_p(x)).count())
+pub fn part1(input: &str) -> Result<usize,Box<dyn Error>> {
+  Ok(parse_input(input)?.iter().filter(|&x| level_safe_p(x)).count())
 }
 
 fn dampened_safe_p(Report(levels): &Report) -> bool {
@@ -57,6 +57,6 @@ fn dampened_safe_p(Report(levels): &Report) -> bool {
   false
 }
 
-pub fn part2(input: String) -> Result<usize,Box<dyn Error>> {
-  Ok(parse_input(input.as_str())?.iter().filter(|&x| dampened_safe_p(x)).count())
+pub fn part2(input: &str) -> Result<usize,Box<dyn Error>> {
+  Ok(parse_input(input)?.iter().filter(|&x| dampened_safe_p(x)).count())
 }

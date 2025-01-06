@@ -80,9 +80,9 @@ fn exec_command_part2(command: Command, state: bool) -> (usize,bool) {
   }
 }
 
-fn part_helper(input: String, command_fn: fn(Command,bool)->(usize,bool)) -> Result<usize,Box<dyn Error>> {
+fn part_helper(input: &str, command_fn: fn(Command,bool)->(usize,bool)) -> Result<usize,Box<dyn Error>> {
   let (_, parsed) = 
-    parse_input(&input).map_err(|e| format!("Parsing error: {:?}", e))?;
+    parse_input(input).map_err(|e| format!("Parsing error: {:?}", e))?;
   let mut aggregate: usize = 0;
   let mut aggregate_p: bool = true;
   for command in parsed {
@@ -93,10 +93,10 @@ fn part_helper(input: String, command_fn: fn(Command,bool)->(usize,bool)) -> Res
   Ok(aggregate)
 }
 
-pub fn part1(input: String) -> Result<usize,Box<dyn Error>> {
+pub fn part1(input: &str) -> Result<usize,Box<dyn Error>> {
   part_helper(input, exec_command_part1)
 }
 
-pub fn part2(input:String) -> Result<usize,Box<dyn Error>> {
+pub fn part2(input: &str) -> Result<usize,Box<dyn Error>> {
   part_helper(input, exec_command_part2)
 }
