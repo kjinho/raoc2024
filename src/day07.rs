@@ -7,6 +7,8 @@ use nom::{
   sequence::{terminated, tuple}, 
   IResult};
 
+use rayon::prelude::*;
+
 struct Equation {
   test_value: usize, 
   numbers: Vec<usize>
@@ -40,7 +42,7 @@ pub fn part1(input: &str) -> Result<usize,Box<dyn Error>> {
     parse_input(input).map_err(|e| format!("error {e}"))?;
 
   let result = 
-    parsed.iter()
+    parsed.par_iter()
       .filter(|&eq| eq.makeable_true(&vec![Operator::Add, Operator::Multiply]))
       .map(|eq| eq.test_value).sum();
 
@@ -52,7 +54,7 @@ pub fn part2(input: &str) -> Result<usize,Box<dyn Error>> {
     parse_input(input).map_err(|e| format!("error {e}"))?;
 
   let result = 
-    parsed.iter()
+    parsed.par_iter()
       .filter(|&eq| eq.makeable_true(&vec![Operator::Add, Operator::Multiply, Operator::Concat]))
       .map(|eq| eq.test_value).sum();
 
